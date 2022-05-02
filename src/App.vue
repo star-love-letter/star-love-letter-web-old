@@ -10,10 +10,3 @@
     name: 'app'
   }
 </script>
-
-<style>
-  html {
-    /*overflow-y: auto;*/
-    /*overflow-x: hidden;*/
-  }
-</style>

@@ -91,8 +91,8 @@ export default {
       this.getTableList();
     },
     //获取帖子列表
-    async getTableList() {
-      await this.$http
+    getTableList() {
+      this.$http
         .get("/api/table/pageList", {
           pageIndex: this.page_index,
           pageSize: this.page_size,

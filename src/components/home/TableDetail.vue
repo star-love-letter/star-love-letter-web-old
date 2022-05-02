@@ -40,7 +40,7 @@
                 <i class="el-icon-plus"></i>
               </el-upload>
               <el-dialog :visible.sync="dialogVisible">
-                <img width="100%" :src="dialogImageUrl" alt=""/>
+                <img width="100%" :src="dialogImageUrl" alt="" />
               </el-dialog>
             </el-form-item>
             <button @click="addComment('inputCommentRef')">发布评论</button>
@@ -56,12 +56,14 @@
                 @click="inputCommentShow = !inputCommentShow"
                 type="primary"
                 plain
-              >发布评论
-              </el-button
-              >
+                >发布评论
+              </el-button>
             </div>
-            <Comment v-for="item in TableComment" :key="item.id" :item="item">
-            </Comment>
+            <Comment
+              v-for="item in TableComment"
+              :key="item.id"
+              :item="item"
+            ></Comment>
           </div>
           <div class="more-comment">暂无更多评论</div>
         </div>
@@ -71,18 +73,18 @@
 </template>
 
 <script>
-import {checkCode, showError} from "../../utils/http";
+import { checkCode, showError } from "../../utils/http";
 import axios from "axios";
 import Comment from "../module/Comment.vue";
 
 export default {
-  components: {Comment},
+  components: { Comment },
   data() {
     return {
       // 接收从post传过来的单个帖子id
       post_id: this.$route.params.id,
       // 根据帖子id返回的数据
-      TableData: "",
+      TableData: {},
       //后端返回的评论内容
       TableComment: {},
       // 页数
@@ -214,7 +216,9 @@ export default {
       }
     },
     handlePictureExceed() {
-      this.$message.warning("最多只能上传" + this.$refs.upload.limit + "张图片");
+      this.$message.warning(
+        "最多只能上传" + this.$refs.upload.limit + "张图片"
+      );
     },
   },
 };

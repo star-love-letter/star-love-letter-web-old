@@ -1,5 +1,5 @@
 <template>
-  <div class="post" ref="postRef">
+  <div class="post">
     <el-breadcrumb separator="❤">
       <el-breadcrumb-item class="gender">
         <div v-if="item.senderSex === 1"><i class="fas fa-mars" style="color: #3B6FA8"></i></div>
@@ -19,30 +19,17 @@
       </el-breadcrumb-item>
     </el-breadcrumb>
 
-    <div @click="goTableDetail(item.id)" class="content-box" v-if="!isDetail">
+    <div @click="goTableDetail(item.id)" class="content-box">
       <div class="item-content">
         {{ item.content }}
       </div>
       <el-image
-        style="width: 100px; height: 100px"
-        v-for="(item,index) in imgList"
-        :key="index"
+        :style="isDetail? tableImageStyle2 : tableImageStyle1"
+        v-for="item in imgList"
+        :key="item.id"
         :src="item"
         fit="cover"
-      >
-      </el-image>
-    </div>
-    <div @click="goTableDetail(item.id)" class="content-box" v-else>
-      <div class="item-content">
-        {{ item.content }}
-      </div>
-      <el-image
-        style="width: 222px; height: 222px"
-        v-for="(item,index) in imgList"
-        :key="index"
-        :src="item"
-        fit="cover"
-        :preview-src-list="imgList"
+        :preview-src-list="isDetail? imgList : false"
       >
       </el-image>
     </div>
@@ -72,7 +59,7 @@
         {{ item.supportCount }}
       </el-button>
       <!--  评论  -->
-      <el-button v-if="isDetail===false" icon="fas fa-comment-alt" @click="goTableDetail">
+      <el-button v-if="!isDetail" icon="fas fa-comment-alt" @click="goTableDetail">
         {{ item.commentCount }}
       </el-button>
       <!--  分享  -->
@@ -125,7 +112,16 @@
         flag: false,
         CommentTotal: '',
         //  图片列表
-        imgList: []
+        imgList: [],
+        // 列表图片的样式
+        tableImageStyle1:{
+          width: '100px',
+          height: '100px'
+        },
+        tableImageStyle2:{
+          width: '222px',
+          height: '222px'
+        }
       }
     },
     name: 'Table',
@@ -153,30 +149,31 @@
           this.getTableData()
         })
       },
-      //根据id获取帖子数据
+      // 根据id获取帖子数据
       async getTableData() {
         await this.$http.get('/api/table/table', {
           id: this.item.id
-        }).then((data) => {
-          this.item = data.data
+        }).then(({data}) => {
+          console.log(data.images)
+          this.item = data
         })
       },
       // 解析图片列表
       getImgList() {
+        this.imgList = []
         if (!this.item.images) {
           return
         }
         // 解析json
         let imgSrc = JSON.parse(this.item.images);
-
-        for (let i = 0; i < imgSrc.length; i++) {
-          this.imgList.push(this.imagePath + imgSrc[i]);
+        for (const item of imgSrc) {
+          this.imgList.push(this.imagePath+item);
         }
       },
       // 打开详情页
       goTableDetail() {
-        if (this.isDetail)
-          return;
+        // if (this.isDetail)
+        //   return;
         this.$router.push({
           name: 'TableDetail',
           params: {'id': this.item.id}
@@ -228,8 +225,12 @@
           this.creatQrCode()
         }
       },
-      item: function (val, oldVal) {
+      // item: function (val, oldVal) {
+      //   this.getImgList()
+      // }
+      item(val){
         this.getImgList()
+        this.item = val
       }
     }
   }

@@ -6,9 +6,12 @@ import './plugins/element.js'
 import './assets/css/reset.css'
 import './assets/css/global.css'
 import './assets/Iconiconfont/css/all.css'
-import {vueBaberrage} from 'vue-baberrage'
 import qs from 'qs';
-import {VueMasonryPlugin} from 'vue-masonry';
+import { VueMasonryPlugin } from 'vue-masonry';
+import store from './store'
+
+
+
 
 Vue.use(VueMasonryPlugin);
 
@@ -21,20 +24,14 @@ Vue.prototype.$http = http;
 
 // 全局模块
 
-// 弹幕
-import Barrages from './components/module/Vue-Baberrage'
 // 帖子
 import Table from './components/module/Table'
 //滑块
 import Slider from './components/module/Slider'
 
-Vue.component('barrages', Barrages);
 Vue.component('Table', Table);
 Vue.component('Comment', Comment);
 Vue.component('Slider', Slider);
-
-// 使用模块
-Vue.use(vueBaberrage);
 
 Vue.config.productionTip = false;
 
@@ -113,8 +110,11 @@ Vue.prototype.getIsMobile = function () {
   return window.screen.width < 1000
 }
 
-//
+
+
+
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
