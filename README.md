@@ -1,4 +1,4 @@
-<p align="center"><img src="../.github/img/logo.png" height="80" alt="星愿墙"></p>
+<p align="center"><img src="https://github.com/star-love-letter/.github/blob/main/img/logo.png" height="80" alt="星愿墙"></p>
 
 ## 校园小情书前端
 
