@@ -79,10 +79,14 @@ import Comment from "../module/Comment.vue";
 
 export default {
   components: { Comment },
+  props:['id'],
+  computed:{
+    tableId(){
+      return this.id
+    }
+  },
   data() {
     return {
-      // 接收从post传过来的单个帖子id
-      post_id: this.$route.params.id,
       // 根据帖子id返回的数据
       TableData: {},
       //后端返回的评论内容
@@ -131,7 +135,7 @@ export default {
     async getComment() {
       await this.$http
         .get("/api/comment/pageList", {
-          tableId: this.post_id,
+          tableId: this.tableId,
           pageIndex: this.page_index,
           pageSize: this.page_size,
         })
@@ -143,7 +147,7 @@ export default {
     async getCommentTotal() {
       await this.$http
         .get("/api/comment/count", {
-          tableId: this.post_id,
+          tableId: this.tableId,
         })
         .then((data) => {
           this.CommentTotal = data.data;
@@ -176,7 +180,7 @@ export default {
     async getTableData() {
       await this.$http
         .get("/api/table/table", {
-          id: this.post_id,
+          id: this.tableId,
         })
         .then((data) => {
           this.TableData = data.data;

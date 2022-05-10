@@ -1,13 +1,7 @@
 <template>
   <div class="barrages-drop">
-    <vue-baberrage class="baberrage-stage"
-                   :isShow="barrageIsShow"
-                   :barrageList="barrageList"
-                   :throttleGap="throttleGap"
-                   :lanesCount="lanesCount"
-                   :loop="barrageLoop"
-                   maxWordCount="60"
-    >
+    <vue-baberrage class="baberrage-stage" :isShow="barrageIsShow" :barrageList="barrageList" :throttleGap="throttleGap"
+      :lanesCount="lanesCount" :loop="barrageLoop" maxWordCount="60">
       <template v-slot:default="slotProps">
 
         <div class="name">
@@ -18,7 +12,7 @@
           {{ slotProps.item.data.recipient }}
         </div>
         <span class="fas fa-thumbs-up">
-            {{ slotProps.item.data.thumbs_up }}
+          {{ slotProps.item.data.thumbs_up }}
         </span>
 
       </template>
@@ -34,7 +28,7 @@ Vue.use(vueBaberrage)
 export default {
   props: ['posts', 'isShow'],
   name: 'Barrages',
-  data () {
+  data() {
     return {
       barrageIsShow: this.isShow,
       barrageLoop: true,
@@ -44,11 +38,11 @@ export default {
       barrageList: []
     }
   },
-  mounted () {
+  mounted() {
     this.init()
   },
   watch: {
-    posts (newValue, oldValue) {
+    posts(newValue, oldValue) {
     }
   },
   methods: {
@@ -76,7 +70,6 @@ export default {
 }
 </script>
 <style>
-
 .barrages-drop .barrageStyle {
   padding: 0.5rem;
   border-radius: 110px;
@@ -107,5 +100,4 @@ export default {
 .xin {
   color: red;
 }
-
 </style>

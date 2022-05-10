@@ -8,7 +8,7 @@
           v-masonry-tile
           style="margin-left: 0.5rem;width: 360px"
         >
-          <Table :item="item" :is-detail="false"> </Table>
+          <Table :item="item" :is-detail="false"></Table>
         </li>
       </ul>
       <div class="bottom-tip">{{ bottomTip }}</div>

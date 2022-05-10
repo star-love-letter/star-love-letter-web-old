@@ -19,57 +19,50 @@ VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
-const routes = [
-  {
-    path: '/',
-    redirect: '/TableList',
-    meta:{
-      title: '首页'
+
+
+
+export default new VueRouter({
+  routes: [
+    {
+      path: '/Login',
+      component: Login
+    },
+    {
+      path: '/Register',
+      component: Register
+    },
+    {
+      //导航栏
+      path: '/',
+      component: Bar,
+      redirect: '/TableList',
+      children: [
+        {
+          path: '/TableList',
+          component: TableList
+        },
+        {
+          path: '/Confession',
+          component: Confession
+        },
+        {
+          path: '/Help',
+          component: Help
+        },
+        {
+          path: '/TableDetail/:id',
+          name: 'TableDetail',
+          component: TableDetail,
+          props: true
+        },
+        {
+          path: '/Search/:keyword',
+          name: 'Search',
+          component: Search,
+        }
+      ]
     }
-  },
-  {
-    path: '/Login',
-    component: Login
-  },
-  {
-    path: '/Register',
-    component: Register
-  },
-  {
-    //导航栏
-    path: '/Bar',
-    component: Bar,
-    redirect: '/TableList',
-    children: [
-      {
-        path: '/TableList',
-        component: TableList
-      },
-      {
-        path: '/Confession',
-        component: Confession
-      },
-      {
-        path: '/Help',
-        component: Help
-      },
-      {
-        path: '/TableDetail/:id',
-        name: 'TableDetail',
-        component: TableDetail,
-      },
-      {
-        path: '/Search/:keyword',
-        name: 'Search',
-        component: Search,
-      }
-    ]
-  }
-]
-
-const router = new VueRouter({
-  routes
+  ]
 })
-
-export default router
 

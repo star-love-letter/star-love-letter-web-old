@@ -9,6 +9,7 @@ import './assets/Iconiconfont/css/all.css'
 import qs from 'qs';
 import { VueMasonryPlugin } from 'vue-masonry';
 import store from './store'
+import 'windi.css'
 
 
 
@@ -26,8 +27,11 @@ Vue.prototype.$http = http;
 
 // 帖子
 import Table from './components/module/Table'
+
 //滑块
 import Slider from './components/module/Slider'
+
+import 'windi.css'
 
 Vue.component('Table', Table);
 Vue.component('Comment', Comment);
@@ -110,7 +114,7 @@ Vue.prototype.getIsMobile = function () {
   return window.screen.width < 1000
 }
 
-
+Vue.config.devtools = true;
 
 
 new Vue({
