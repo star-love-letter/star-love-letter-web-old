@@ -1,17 +1,19 @@
 <template>
-  <div style="width: 100%; margin: 0 auto">
-    <div class="container" style="max-width: 1113px">
+  <div class="container <xl:max-w-6xl">
+    <div class="<2xl:ml-20 mt-10 <xl:ml-0 <lg:ml-30 <md:w-94 <md:ml-auto <md:mr-auto <md:mt-10">
       <ul :data="posts" v-masonry>
         <li
           v-for="item in posts"
           :key="item.id"
           v-masonry-tile
-          style="margin-left: 0.5rem;width: 360px"
+          style="margin-left: 0.5rem; width: 360px"
         >
           <Table :item="item" :is-detail="false"></Table>
         </li>
       </ul>
-      <div class="bottom-tip">{{ bottomTip }}</div>
+    </div>
+    <div class="bottom-tip">
+      {{ bottomTip }}
     </div>
   </div>
 </template>
@@ -114,9 +116,6 @@ export default {
 
 <!--<style src="../../assets/css/posts.css"></style>-->
 <style scoped>
-.container {
-  margin: 0 auto;
-}
 
 .bottom-tip {
   font-size: 14px;

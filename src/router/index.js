@@ -8,6 +8,7 @@ import Help from '../components/home/Help'
 import Search from '../components/home/Search'
 import Login from '../components/home/Login/Login'
 import Register from '../components/home/Login/Register'
+import Home from '../components/home/Home'
 
 
 Vue.use(VueRouter)
@@ -36,8 +37,12 @@ export default new VueRouter({
       //导航栏
       path: '/',
       component: Bar,
-      redirect: '/TableList',
+      redirect: '/Home',
       children: [
+        {
+          path: '/Home',
+          component: Home
+        },
         {
           path: '/TableList',
           component: TableList

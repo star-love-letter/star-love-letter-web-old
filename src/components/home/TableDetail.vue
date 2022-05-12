@@ -1,72 +1,68 @@
 <template>
-  <div style="width: 100%; margin: 0px auto">
-    <div class="container">
-      <div>
-        <Table :item="TableData" :is-detail="true"></Table>
+  <div class="w-1/2 <md:w-11/12 <lg:w-4/5 mt-10 mb-10">
+    <Table class="mb-3" :item="TableData" :is-detail="true"></Table>
+    <div style="border: 1px solid rgb(193 193 193)">
+      <div id="inputComment" class="input-comment" v-if="inputCommentShow">
+        <el-form
+          :model="inputComment"
+          :rules="inputCommentRules"
+          ref="inputCommentRef"
+          label-width="100px"
+        >
+          <h3 style="margin-bottom: 14px">发布评论</h3>
+          <el-form-item label="评论内容：" prop="InputContent">
+            <el-input
+              type="textarea"
+              :rows="4"
+              placeholder="请输入内容"
+              resize="none"
+              v-model="inputComment.InputContent"
+            >
+            </el-input>
+          </el-form-item>
+          <el-form-item label="评论内容：" style="text-align: left">
+            <el-upload
+              ref="upload"
+              :action="uploadUrl"
+              list-type="picture-card"
+              :headers="uploadHeader"
+              :on-success="submitUpload"
+              :on-remove="handleRemove"
+              :on-preview="handlePictureCardPreview"
+              :on-exceed="handlePictureExceed"
+              multiple="true"
+              accept="image/jpeg,image/gif,image/png"
+              limit="6"
+            >
+              <i class="el-icon-plus"></i>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="" />
+            </el-dialog>
+          </el-form-item>
+          <button @click="addComment('inputCommentRef')">发布评论</button>
+        </el-form>
       </div>
-      <div style="border: 1px solid rgb(193 193 193)">
-        <div id="inputComment" class="input-comment" v-if="inputCommentShow">
-          <el-form
-            :model="inputComment"
-            :rules="inputCommentRules"
-            ref="inputCommentRef"
-            label-width="100px"
-          >
-            <h3 style="margin-bottom: 14px">发布评论</h3>
-            <el-form-item label="评论内容：" prop="InputContent">
-              <el-input
-                type="textarea"
-                :rows="4"
-                placeholder="请输入内容"
-                resize="none"
-                v-model="inputComment.InputContent"
-              >
-              </el-input>
-            </el-form-item>
-            <el-form-item label="评论内容：" style="text-align: left">
-              <el-upload
-                ref="upload"
-                :action="uploadUrl"
-                list-type="picture-card"
-                :headers="uploadHeader"
-                :on-success="submitUpload"
-                :on-remove="handleRemove"
-                :on-preview="handlePictureCardPreview"
-                :on-exceed="handlePictureExceed"
-                multiple="true"
-                accept="image/jpeg,image/gif,image/png"
-                limit="6"
-              >
-                <i class="el-icon-plus"></i>
-              </el-upload>
-              <el-dialog :visible.sync="dialogVisible">
-                <img width="100%" :src="dialogImageUrl" alt="" />
-              </el-dialog>
-            </el-form-item>
-            <button @click="addComment('inputCommentRef')">发布评论</button>
-          </el-form>
-        </div>
-        <div class="comment-container">
-          <div class="comment-list">
-            <div class="comment-title">
-              <span> 评论(共{{ CommentTotal }}条) </span>
-              <el-button
-                class="input-comment-button"
-                size="small"
-                @click="inputCommentShow = !inputCommentShow"
-                type="primary"
-                plain
-                >发布评论
-              </el-button>
-            </div>
-            <Comment
-              v-for="item in TableComment"
-              :key="item.id"
-              :item="item"
-            ></Comment>
+      <div class="comment-container">
+        <div class="comment-list">
+          <div class="comment-title">
+            <span> 评论(共{{ CommentTotal }}条) </span>
+            <el-button
+              class="input-comment-button"
+              size="small"
+              @click="inputCommentShow = !inputCommentShow"
+              type="primary"
+              plain
+              >发布评论
+            </el-button>
           </div>
-          <div class="more-comment">暂无更多评论</div>
+          <Comment
+            v-for="item in TableComment"
+            :key="item.id"
+            :item="item"
+          ></Comment>
         </div>
+        <div class="more-comment">暂无更多评论</div>
       </div>
     </div>
   </div>
@@ -79,11 +75,11 @@ import Comment from "../module/Comment.vue";
 
 export default {
   components: { Comment },
-  props:['id'],
-  computed:{
-    tableId(){
-      return this.id
-    }
+  props: ["id"],
+  computed: {
+    tableId() {
+      return this.id;
+    },
   },
   data() {
     return {
