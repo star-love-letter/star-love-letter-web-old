@@ -31,7 +31,7 @@ https://github.com/star-love-letter
 ##### 1、下载项目到本地
 
 ```
-git clone https://github.com/AGouDOM/wall-web.git
+git clone https://github.com/star-love-letter/star-love-letter-web.git
 ```
 
 ##### 2、安装依赖	
