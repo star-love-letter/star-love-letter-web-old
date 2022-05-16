@@ -5,7 +5,7 @@
 
     <div class="range" :class="rangeStatus?'success':''">
       <i @mousedown="rangeMove" :class="rangeStatus?successIcon:startIcon"></i>
-      {{rangeStatus?successText:startText}}
+      <span class="text-xs text-white">{{rangeStatus?successText:startText}}</span>
     </div>
   </div>
 </template>
@@ -129,7 +129,7 @@
 
 <style scoped>
   .range {
-    background-color: #FFCCCC;
+    background-color: #a8a7a7;
     position: relative;
     transition: 1s all;
     user-select: none;

@@ -1,15 +1,15 @@
 <template>
   <div class="login_container" v-title data-title="登录 — 星愿墙">
-    <div class="login_box">
+    <div class="w-120 h-80 <md:w-100 <md:h-70 <sm:w-10/12 <sm:h-70 bg-white flex justify-center rounded-2xl relative">
       <!--   头像区域   -->
-      <div class="avatar_box">
+      <div class="avatar_box <md:w-30 <sm:w-25 w-35">
         <img src="@/assets/img/avatar.jpg" alt="">
       </div>
       <!--   登录表单区域   -->
       <el-form ref="loginFromRef" :model="loginFrom" :rules="loginFromRules" class="e_form">
         <!--    用户名    -->
         <el-form-item prop="email">
-          <el-input v-focus @keyup.enter.native="login" v-model="loginFrom.email_or_id" prefix-icon="fas fa-user"></el-input>
+          <el-input v-focus @keyup.enter.native="login" v-model="loginFrom.email_or_id" prefix-icon="fas fa-envelope"></el-input>
         </el-form-item>
         <!--    密码    -->
         <el-form-item prop="password">
@@ -19,7 +19,7 @@
         <!--    按钮区域    -->
         <el-form-item class="btns">
           <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="info" @click="resetLoginFrom">重置</el-button>
+          <el-button type="info" @click="resetLoginFrom" class="<sm:hidden">重置</el-button>
           <el-button type="info" @click="goRegister">注册</el-button>
         </el-form-item>
       </el-form>
@@ -118,8 +118,6 @@ export default {
 }
 
 .avatar_box {
-  height: 130px;
-  width: 130px;
   border: 1px solid #eee;
   border-radius: 50%;
   padding: 7px;

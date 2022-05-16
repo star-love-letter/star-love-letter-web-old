@@ -2,8 +2,12 @@
   <div class="post">
     <el-breadcrumb separator="❤">
       <el-breadcrumb-item class="gender">
-        <div v-if="item.senderSex === 1"><i class="fas fa-mars" style="color: #3B6FA8"></i></div>
-        <div v-else-if="item.senderSex === 2"><i class="fas fa-venus" style="color: deeppink"></i></div>
+        <div v-if="item.senderSex === 1">
+          <i class="fas fa-mars" style="color: #3b6fa8"></i>
+        </div>
+        <div v-else-if="item.senderSex === 2">
+          <i class="fas fa-venus" style="color: deeppink"></i>
+        </div>
         <div v-else><i class="fas fa-genderless"></i></div>
         <div class="name" @click="goSearch(item.sender)">
           {{ item.sender }}
@@ -13,24 +17,37 @@
         <div class="name" @click="goSearch(item.recipient)">
           {{ item.recipient }}
         </div>
-        <div v-if="item.recipientSex === 1"><i class="fas fa-mars" style="color: #3B6FA8"></i></div>
-        <div v-else-if="item.recipientSex === 2"><i class="fas fa-venus" style="color: deeppink"></i></div>
+        <div v-if="item.recipientSex === 1">
+          <i class="fas fa-mars" style="color: #3b6fa8"></i>
+        </div>
+        <div v-else-if="item.recipientSex === 2">
+          <i class="fas fa-venus" style="color: deeppink"></i>
+        </div>
         <div v-else><i class="fas fa-genderless"></i></div>
       </el-breadcrumb-item>
     </el-breadcrumb>
 
-    <div @click="goTableDetail(item.id)" class="content-box">
+    <div class="content-box">
       <div class="item-content">
         {{ item.content }}
       </div>
-      <el-image :style="isDetail ? tableImageStyle2 : tableImageStyle1" v-for="item in imgList" :key="item.id"
-        :src="item" fit="cover" :preview-src-list="isDetail ? imgList : false">
+      <el-image
+        :style="isDetail ? tableImageStyle2 : tableImageStyle1"
+        v-for="item in imgList"
+        :key="item.id"
+        :src="item"
+        fit="cover"
+        :preview-src-list="isDetail ? imgList : false"
+      >
       </el-image>
     </div>
 
     <div class="info">
-      <div v-if="item.anonymous === true || item.userPublic === undefined" class="user">
-        表白者：<span style="color: #999;font-weight: bold">[匿名]</span>
+      <div
+        v-if="item.anonymous === true || item.userPublic === undefined"
+        class="user"
+      >
+        表白者：<span style="color: #999; font-weight: bold">[匿名]</span>
       </div>
       <div v-else class="user">表白者：{{ item.userPublic.name }}</div>
       <div class="create-time">{{ this.toDates(item.createTime) }}</div>
@@ -38,27 +55,45 @@
 
     <el-button-group>
       <!--   点赞   -->
-      <el-button icon="fas fa-thumbs-up" @click="thumbs_up" id="thumbsTrue" v-if="!item.support">
+      <el-button
+        icon="fas fa-thumbs-up"
+        @click="thumbs_up"
+        id="thumbsTrue"
+        v-if="!item.support"
+      >
         {{ item.supportCount }}
       </el-button>
-      <el-button icon="fas fa-thumbs-up" @click="un_thumbs_up" id="thumbsFalse" v-else>
+      <el-button
+        icon="fas fa-thumbs-up"
+        @click="un_thumbs_up"
+        id="thumbsFalse"
+        v-else
+      >
         {{ item.supportCount }}
       </el-button>
       <!--  评论  -->
-      <el-button v-if="!isDetail" icon="fas fa-comment-alt" @click="goTableDetail">
+      <el-button
+        v-if="!isDetail"
+        icon="fas fa-comment-alt"
+        @click="goTableDetail"
+      >
         {{ item.commentCount }}
       </el-button>
       <!--  分享  -->
       <el-button icon="fas fa-share-square" @click="showQrCode"></el-button>
     </el-button-group>
     <!--  点击分享后显示的页面  -->
-    <el-dialog :visible.sync="QRVisible" width="37%">
+    <el-dialog :visible.sync="QRVisible" width="60%">
       <div class="qrcode" ref="qrCodeUrl"></div>
-      <div class="search" style="width: 32.125rem;margin-left: 1.25rem">
-        <el-breadcrumb separator="❤" style="border-bottom: 0;font-size: 1.5em">
+      <div>
+        <el-breadcrumb separator="❤" style="border-bottom: 0; font-size: 1.5em">
           <el-breadcrumb-item class="gender">
-            <div v-if="item.sender_sex === 1"><i class="fas fa-mars" style="color: #3B6FA8"></i></div>
-            <div v-else-if="item.sender_sex === 2"><i class="fas fa-venus" style="color: deeppink"></i></div>
+            <div v-if="item.sender_sex === 1">
+              <i class="fas fa-mars" style="color: #3b6fa8"></i>
+            </div>
+            <div v-else-if="item.sender_sex === 2">
+              <i class="fas fa-venus" style="color: deeppink"></i>
+            </div>
             <div v-else><i class="fas fa-genderless"></i></div>
             <div class="name" @click="goSearch(item.sender)">
               {{ item.sender }}
@@ -68,85 +103,98 @@
             <div class="name" @click="goSearch(item.recipient)">
               {{ item.recipient }}
             </div>
-            <div v-if="item.recipient_sex === 1"><i class="fas fa-mars" style="color: #3B6FA8"></i></div>
-            <div v-else-if="item.recipient_sex === 2"><i class="fas fa-venus" style="color: deeppink"></i></div>
+            <div v-if="item.recipient_sex === 1">
+              <i class="fas fa-mars" style="color: #3b6fa8"></i>
+            </div>
+            <div v-else-if="item.recipient_sex === 2">
+              <i class="fas fa-venus" style="color: deeppink"></i>
+            </div>
             <div v-else><i class="fas fa-genderless"></i></div>
           </el-breadcrumb-item>
         </el-breadcrumb>
-        <el-input style="height: 0.6rem" size="small" v-model="url" ref="urlText" readonly>
+        <el-input
+          style="height: 0.6rem"
+          size="small"
+          v-model="url"
+          ref="urlText"
+          readonly
+        >
           <el-button slot="append" @click="copyUrl">复制</el-button>
         </el-input>
       </div>
     </el-dialog>
   </div>
-
 </template>
 
 <script>
-import QRCode from 'qrcodejs2'
-
 export default {
   data() {
     return {
       imgVisible: false,
-      imagePath: axios.defaults.baseURL + '/api/file/image/',
+      imagePath: axios.defaults.baseURL + "/api/file/image/",
       QRVisible: false,
-      TableId: '',
-      url: '',
+      TableId: "",
+      url: "",
       flag: false,
-      CommentTotal: '',
+      CommentTotal: "",
       //  图片列表
       imgList: [],
       // 列表图片的样式
       tableImageStyle1: {
-        width: '100px',
-        height: '100px'
+        width: "100px",
+        height: "100px",
       },
       tableImageStyle2: {
-        width: '222px',
-        height: '222px'
-      }
-    }
+        width: "222px",
+        height: "222px",
+      },
+    };
   },
-  name: 'Table',
+  name: "Table",
 
   //item 内容
   //isDetail 是否为详情页
   //          详情页没有点击进入详情页功能
-  props: ['item', 'isDetail', 'id'],
+  props: ["item", "isDetail", "id"],
   methods: {
     // 点击喜欢按钮
     async thumbs_up() {
-      await this.$http.put('/api/table/support', {
-        tableId: this.item.id
-      }).then((data) => {
-        this.$message.success(data.message)
-        this.getTableData()
-      })
+      await this.$http
+        .put("/api/table/support", {
+          tableId: this.item.id,
+        })
+        .then((data) => {
+          this.$message.success(data.message);
+          this.getTableData();
+        });
     },
     // 点击取消喜欢按钮
     async un_thumbs_up() {
-      await this.$http.delete('/api/table/support', {
-        tableId: this.item.id
-      }).then((data) => {
-        this.$message.success(data.message);
-        this.getTableData()
-      })
+      await this.$http
+        .delete("/api/table/support", {
+          tableId: this.item.id,
+        })
+        .then((data) => {
+          this.$message.success(data.message);
+          this.getTableData();
+        });
     },
     // 根据id获取帖子数据
     async getTableData() {
-      await this.$http.get('/api/table/table', {
-        id: this.item.id
-      }).then(({ data }) => {
-        console.log(data.images)
-        this.item = data
-      })
+      await this.$http
+        .get("/api/table/table", {
+          id: this.item.id,
+        })
+        .then(({ data }) => {
+          console.log(data.images);
+          this.item = data;
+        });
     },
     // 解析图片列表
     getImgList() {
-      this.imgList = []
+      this.imgList = [];
       if (!this.item.images) {
-        return
+        return;
       }
       // 解析json
       let imgSrc = JSON.parse(this.item.images);
@@ -156,68 +204,63 @@ export default {
     },
     // 打开详情页
     goTableDetail() {
-      // if (this.isDetail)
-      //   return;
       this.$router.push({
-        name: 'TableDetail',
-        params: { 'id': this.item.id }
-      })
+        name: "TableDetail",
+        params: { id: this.item.id },
+      });
     },
     //搜索
     goSearch(keyword) {
       this.$router.push({
-        name: 'Search',
-        params: { keyword: keyword }
-      })
+        name: "Search",
+        params: { keyword: keyword },
+      });
     },
     // 显示分享页面
     showQrCode() {
-      this.QRVisible = true
-      this.TableId = this.item.id
+      this.QRVisible = true;
+      this.TableId = this.item.id;
     },
     // 创建二维码的函数
     creatQrCode() {
       this.$nextTick(() => {
         // 获取不带路径的url地址
-        var origin = window.location.origin
-        const url = origin + '/#/TableDetail/' + this.TableId
-        this.url = url
-        this.$refs.qrCodeUrl.innerHTML = '' //清空原有的二维码
-        var qrcode = new QRCode(this.$refs.qrCodeUrl, {
-          text: url, // 需要转换为二维码的内容
-          width: 100,
-          height: 100,
-          colorDark: '#0099ce',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.H
-        })
-      })
+        var origin = window.location.origin;
+        const url = origin + "/#/TableDetail/" + this.TableId;
+        this.url = url;
+        // this.$refs.qrCodeUrl.innerHTML = ""; //清空原有的二维码
+        // var qrcode = new QRCode(this.$refs.qrCodeUrl, {
+        //   text: url, // 需要转换为二维码的内容
+        //   width: 100,
+        //   height: 100,
+        //   colorDark: "#0099ce",
+        //   colorLight: "#ffffff",
+        //   correctLevel: QRCode.CorrectLevel.H,
+        // });
+      });
     },
     copyUrl() {
-      var ele = this.$refs.urlText
-      ele.select()
-      document.execCommand('Copy')
-      this.$message.success('复制链接成功！')
-    }
+      var ele = this.$refs.urlText;
+      ele.select();
+      document.execCommand("Copy");
+      this.$message.success("复制链接成功！");
+    },
   },
   created() {
-    this.getImgList()
+    this.getImgList();
   },
   watch: {
     QRVisible: function (val, oldVal) {
       if (val === true) {
-        this.creatQrCode()
+        this.creatQrCode();
       }
     },
-    // item: function (val, oldVal) {
-    //   this.getImgList()
-    // }
     item(val) {
-      this.getImgList()
-      this.item = val
-    }
-  }
-}
+      this.getImgList();
+      this.item = val;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -230,7 +273,6 @@ export default {
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
-
 
 .image-box {
   display: inline-block;
@@ -268,7 +310,7 @@ export default {
   width: 100%;
   height: 45%;
   word-wrap: break-word;
-  box-shadow: 1px 1px 5px #CCCCCC70;
+  box-shadow: 1px 1px 5px #cccccc70;
 }
 
 /* 内容里面的按钮数组 */
@@ -290,7 +332,8 @@ export default {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
   margin-left: 0.6rem;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
 /* 创建时间的样式 */
@@ -298,7 +341,8 @@ export default {
   color: #999;
   font-size: 0.8rem;
   margin: 1.25rem 0.6rem 1.25rem auto;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
 .gender div {
@@ -326,25 +370,25 @@ export default {
 }
 
 #thumbsFalse {
-  color: #409EFF;
+  color: #409eff;
   border-color: #c6e2ff;
   background-color: #ecf5ff;
 }
 
 #thumbsFalse:hover {
-  color: #409EFF;
+  color: #409eff;
   border-color: #c6e2ff;
   background-color: #ecf5ff;
 }
 
 #thumbsTrue:focus {
   color: #606266;
-  border-color: #DCDFE6;
-  background-color: #FFF;
+  border-color: #dcdfe6;
+  background-color: #fff;
 }
 
 #thumbsTrue:hover {
-  color: #409EFF;
+  color: #409eff;
   border-color: #c6e2ff;
   background-color: #ecf5ff;
 }

@@ -9,7 +9,7 @@ module.exports = {
     // 发布模式
     config.when(process.env.NODE_ENV === 'production', config => {
       config.entry('app').clear().add('./src/main-prod.js').add('./src/main.js')
-
+      
       config.set('externals',{
         vue: 'Vue',
         // 'vue-router': 'VueRouter',
