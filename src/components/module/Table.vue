@@ -84,8 +84,8 @@
     </el-button-group>
     <!--  点击分享后显示的页面  -->
     <el-dialog :visible.sync="QRVisible" width="60%">
-      <div class="qrcode" ref="qrCodeUrl"></div>
-      <div>
+      <canvas ref="qrCodeUrl"></canvas>
+      <div class="flex flex-col items-center justify-center">
         <el-breadcrumb separator="❤" style="border-bottom: 0; font-size: 1.5em">
           <el-breadcrumb-item class="gender">
             <div v-if="item.sender_sex === 1">
@@ -127,6 +127,7 @@
 </template>
 
 <script>
+import QRCode from "qrcode"; //引入生成二维码插件
 export default {
   data() {
     return {
@@ -228,15 +229,28 @@ export default {
         var origin = window.location.origin;
         const url = origin + "/#/TableDetail/" + this.TableId;
         this.url = url;
-        // this.$refs.qrCodeUrl.innerHTML = ""; //清空原有的二维码
-        // var qrcode = new QRCode(this.$refs.qrCodeUrl, {
-        //   text: url, // 需要转换为二维码的内容
-        //   width: 100,
-        //   height: 100,
-        //   colorDark: "#0099ce",
-        //   colorLight: "#ffffff",
-        //   correctLevel: QRCode.CorrectLevel.H,
-        // });
+        this.$refs.qrCodeUrl.innerHTML = ""; //清空原有的二维码
+
+        // 创建二维码
+        let opts = {
+          errorCorrectionLevel: "H", //容错级别
+          type: "image/png", //生成的二维码类型
+          quality: 0.3, //二维码质量
+          margin: 12, //二维码留白边距
+          width: 150, //宽
+          height: 150, //高
+          text: url, //二维码内容
+          color: {
+            dark: "#333333", //前景色
+            light: "#fff", //背景色
+          },
+        };
+        this.QRCodeMsg = url; //生成的二维码为URL地址js
+        let msg = this.$refs.qrCodeUrl;
+        // 将获取到的数据（val）画到msg（canvas）上
+        QRCode.toCanvas(msg, this.QRCodeMsg, opts, function (error) {
+          if (error) console.error(error);
+        });
       });
     },
     copyUrl() {

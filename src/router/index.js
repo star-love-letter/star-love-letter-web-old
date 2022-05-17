@@ -24,7 +24,7 @@ VueRouter.prototype.push = function push(location) {
 
 
 export default new VueRouter({
-  // mode: 'history',
+  mode: 'hash',
   routes: [
     {
       path: '/Login',
