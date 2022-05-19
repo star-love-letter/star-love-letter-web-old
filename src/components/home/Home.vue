@@ -19,7 +19,7 @@
       <span class="text-center block text-base text-dark-700 m-2"
         >微信小程序</span
       >
-      <img class="m-auto" src="@/assets/AppletsQRcode.jpg" />
+      <img class="m-auto" src="@/assets/AppletsQRcode_0.16.jpg" />
     </div>
     <div class="bg-dark-100 h-15 w-full absolute bottom-0 leading-15 text-center text-white text-sm">
       <a href="https://beian.miit.gov.cn" target="_blank">
